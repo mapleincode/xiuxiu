@@ -1,0 +1,24 @@
+{
+  "name": "xiuxiu",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mapleincode/xiuxiu.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapleincode/xiuxiu/issues"
+  },
+  "homepage": "https://github.com/mapleincode/xiuxiu#readme",
+  "dependencies": {
+    "async": "^2.4.1",
+    "lodash": "^4.17.4",
+    "wmdl": "^1.0.1"
+  }
+}
