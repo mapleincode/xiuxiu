@@ -55,7 +55,7 @@ function crawl(url, callback) {
             async.each(pic, function (p, callback) {
                 // console.log(pic);
                 const a = p.match(/\w+\.jpg/)[0];
-                wmdl.wmdl(`http://www.xiumm.org/${p}`, `${title}/${a}`, callback);
+                wmdl.wmdl(`http://www.xiumm.org/${p}`, `Downloads/${title}/${a}`, callback);
             }, callback);
         });
 
