@@ -47,15 +47,22 @@ function crawl(url, callback) {
                 }
             }
 
-            let pic = body.match(/\/data[0-9\/\.jpg]+/g);
+            let pic = body.match(/\/data[0-9\/\.jpgepn]+/g);
 
             if (!pic) {
                 aa = false;
             }
             async.each(pic, function (p, callback) {
                 // console.log(pic);
-                const a = p.match(/\w+\.jpg/)[0];
-                wmdl.wmdl(`http://www.xiumm.org/${p}`, `Downloads/${title}/${a}`, callback);
+                const a = p.match(/\w+\.(jpg|jpeg|png)/)[0];
+                wmdl.wmdl(`http://www.xiumm.org/${p}`, `Downloads/${title}/${a}`, function(err) {
+                    if(err) {
+                        return wmdl.wmdl(`http://www.xiumm.org/${p}`, `Downloads/${title}/${a}`, function(err) {
+                            callback();
+                        });
+                    }
+                    callback();
+                });
             }, callback);
         });
 
@@ -75,14 +82,17 @@ async.whilst(() => { return page < 200 }, function (callback) {
     console.log(baseUri);
     request.get(baseUri, function (err, res, body) {
         if (err) {
-            return callback(err);
+            page --;
+            return callback();
         }
         let urls = body.match(/http\:\/\/www\.xiumm\.org\/photos\/[A-Za-z0-9\-\/]+\.html/g);
         urls = _.union(urls);
         console.log(urls);
         console.log(urls.length);
         async.eachSeries(urls, function (url, callback) {
-            crawl(url, callback);
+            crawl(url, function(err) {
+                callback();
+            });
         }, callback)
     });
 }, function (err) {
