@@ -21,7 +21,7 @@ function crawl(url, callback) {
 
     let n = 1;
 
-    async.whilst(function () { return aa; }, function (callback) {
+    async.whilst(function () { return aa && number < 100; }, function (callback) {
         let newUrl = url;
         if (number > 1) {
             newUrl = url.replace(".html", `.html?page=${number}`);
