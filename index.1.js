@@ -21,7 +21,11 @@ function crawl(url, callback) {
 
     let n = 1;
 
-    async.whilst(function () { return aa && number < 100; }, function (callback) {
+    let sameTimes = 0;
+
+    const hashMap = {};
+
+    async.whilst(function () { return sameTimes <= 1 && aa && number < 100; }, function (callback) {
         let newUrl = url;
         if (number > 1) {
             newUrl = url.replace(".html", `.html?page=${number}`);
@@ -58,6 +62,12 @@ function crawl(url, callback) {
                 return callback();
             }
             pic = pic[0];
+
+            if(hashMap[pic]) {
+                sameTimes ++;
+            } else {
+                hashMap[pic] = true;
+            }
             // async.each(pic, function (p, callback) {
             //     // console.log(pic);
             //     // const a = p.match(/\w+\.(jpg|jpeg|png)/)[0];
