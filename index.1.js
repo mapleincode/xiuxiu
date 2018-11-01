@@ -96,7 +96,9 @@ function crawl(url, callback) {
 
 let baseUri = "https://www.lunu8.com"
 let page = 1;
-// http://www.xiumm.org/albums/page-2.html
+
+let totalNum = 0;
+
 async.whilst(() => { return page < 31 }, function (callback) {
     if (page > 1) {
         baseUri = `https://www.lunu8.com/page_${page}.html`;
@@ -112,6 +114,11 @@ async.whilst(() => { return page < 31 }, function (callback) {
         urls = _.union(urls);
         console.log(urls);
         console.log(urls.length);
+
+        totalNum += urls.length;
+
+        console.log(`当前第 ${page - 1} 页， 总数 ${totalNum}`);
+
         async.eachSeries(urls, function (url, callback) {
             crawl(url, function(err) {
                 callback();
